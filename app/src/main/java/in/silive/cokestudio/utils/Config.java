@@ -5,5 +5,5 @@ package in.silive.cokestudio.utils;
  */
 
 public class Config {
-    public static final String API_KEY = "";
+    public static final String API_URL = "http://starlord.hackerearth.com/edfora/cokestudio";
 }

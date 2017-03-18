@@ -28,12 +28,10 @@ public class FetchData extends AsyncTask<Void,Void,String> {
     public StringBuilder H_response;
     public ProgressDialog progressDialog;
     public String jsonStr;
-    public static ArrayList<String> names_of_players;
-    public static ArrayList<String> desc_of_players;
-    public static ArrayList<Integer> img_of_players;
-    public static ArrayList<String> country_of_players;
-    public static ArrayList<Long> runs_of_players;
-    public static ArrayList<Integer> matches_of_players;
+    public static ArrayList<String> names_of_songs;
+    public static ArrayList<String> url_of_songs;
+    public static ArrayList<String> artist_of_songs;
+    public static ArrayList<String> image_of_songs;
     public FetchData(Context c) {
         context = c;
         this.progressDialog = new ProgressDialog(c);
@@ -41,7 +39,7 @@ public class FetchData extends AsyncTask<Void,Void,String> {
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            H_url = new URL(Config.API_KEY);
+            H_url = new URL(Config.API_URL);
             H_connection = (HttpURLConnection) H_url.openConnection();
             Log.d("TAG", "url : " + H_url);
             Log.d("TAG", "connection");
@@ -53,7 +51,7 @@ public class FetchData extends AsyncTask<Void,Void,String> {
             H_bufferedReader = new BufferedReader(new InputStreamReader(H_connection.getInputStream()));
             Log.d("TAG", "buff readr");
             HttpHandler sh = new HttpHandler();
-            jsonStr = sh.makeServiceCall(Config.API_KEY);
+            jsonStr = sh.makeServiceCall(Config.API_URL);
         } catch (Exception e) {
             Log.d("TAG", "NO connection");
             e.printStackTrace();
@@ -80,12 +78,16 @@ public class FetchData extends AsyncTask<Void,Void,String> {
             Log.d("TAG", "JSON data : "+s);
             //Log.d("TAG", "JSON obj created");
 
-/*JSONArray List_of_kings = King_object.getJSONArray();*/
+
             Log.d("TAG", "JSON array fetched");
             JSONObject jsonObject = new JSONObject(jsonStr);
-            JSONArray List_of_batsmen = jsonObject.getJSONArray("records");
+            JSONArray List_of_batsmen = jsonObject.getJSONArray("");
             for (int i = 0; i < List_of_batsmen.length(); i++) {
-                JSONObject batsm_list = List_of_batsmen.getJSONObject(i);
+                JSONObject songs_list = List_of_batsmen.getJSONObject(i);
+                names_of_songs.add(songs_list.getString("song"));
+                url_of_songs.add(songs_list.getString("url"));
+                artist_of_songs.add(songs_list.getString("artists"));
+                image_of_songs.add(songs_list.getString("cover_image"));
 
             }
             Log.d("TAG", "Item added");
