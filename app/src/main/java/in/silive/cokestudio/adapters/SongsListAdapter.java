@@ -19,11 +19,20 @@ import in.silive.cokestudio.R;
  */
 
 public class SongsListAdapter extends BaseAdapter {
-    public static ArrayList<String> names_of_songs;
-    public static ArrayList<String> url_of_songs;
-    public static ArrayList<String> artist_of_songs;
-    public static ArrayList<String> image_of_songs;
+    public static ArrayList<String> names_of_songs = new ArrayList<>();
+    public static ArrayList<String> url_of_songs = new ArrayList<>();
+    public static ArrayList<String> artist_of_songs = new ArrayList<>();
+    public static ArrayList<String> image_of_songs = new ArrayList<>();
     public static Context context;
+
+    public SongsListAdapter(Context c,ArrayList<String>names,ArrayList<String>url,ArrayList<String>artist,ArrayList<String>image) {
+        this.names_of_songs = names;
+        this.url_of_songs = url;
+        this.artist_of_songs = artist;
+        this.image_of_songs = image;
+        this.context = c;
+    }
+
     private class Holder{
         TextView song_name, name_of_artists;
         ImageView song_img, song_play, song_download;
